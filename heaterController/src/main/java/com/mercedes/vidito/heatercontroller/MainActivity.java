@@ -1,4 +1,4 @@
-package com.mercedes.vidito.myapplicationtest;
+package com.mercedes.vidito.heatercontroller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
