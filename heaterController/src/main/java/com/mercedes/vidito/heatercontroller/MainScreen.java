@@ -19,17 +19,18 @@ public class MainScreen extends AppCompatActivity {
         final Button connectButton = (Button) findViewById(R.id.button_connect);
         connectButton.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View view){
-                    enableAdapter(bluetoothController);
-                    connectToArduino(bluetoothController);
+                    enableAdapterAndConnect(bluetoothController);
+
                 }
 
         });
 
     }
 
-    private void enableAdapter(BluetoothController controller){
+    private void enableAdapterAndConnect(BluetoothController controller){
         if(controller.existBluetoothAdapter()){
             controller.enableAdapter();
+            connectToArduino(controller);
         } else {
             showMessage("Bluetooth adapter does not exists");
             finish();
