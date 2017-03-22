@@ -24,7 +24,7 @@ public class MainScreen extends AppCompatActivity {
         final Button connectButton = (Button) findViewById(R.id.button_connect);
         connectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                //enableAdapter();
+                enableAdapter();
                 Intent openScreenTwo = new Intent(view.getContext(), ServicesScreen.class);
                 startActivityForResult(openScreenTwo, 0);
             }
