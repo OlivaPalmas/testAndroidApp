@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HeaterControllerApp.iml" filepath="$PROJECT_DIR$/HeaterControllerApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/heaterController/heaterController.iml" filepath="$PROJECT_DIR$/heaterController/heaterController.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testAndroidApp.iml" filepath="$PROJECT_DIR$/testAndroidApp.iml" />
     </modules>
   </component>
 </project>
