@@ -1,6 +1,9 @@
 package com.mercedes.vidito.heatercontroller;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,46 +13,52 @@ import android.content.Intent;
 
 public class MainScreen extends AppCompatActivity {
 
+    private BluetoothAdapter mBluetoothAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainscreen);
-        final BluetoothController bluetoothController = new BluetoothController(this);
-        final Button connectButton = (Button) findViewById(R.id.button_connect);
-        connectButton.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View view){
-                    enableAdapterAndConnect(bluetoothController);
 
-                }
+        final Button connectButton = (Button) findViewById(R.id.button_connect);
+        connectButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //enableAdapter();
+                Intent openScreenTwo = new Intent(view.getContext(), ServicesScreen.class);
+                startActivityForResult(openScreenTwo, 0);
+            }
 
         });
 
     }
 
-    private void enableAdapterAndConnect(BluetoothController controller){
-        if(controller.existBluetoothAdapter()){
-            controller.enableAdapter();
-            connectToArduino(controller);
-        } else {
-            showMessage("Bluetooth adapter does not exists");
+    private void enableAdapter() {
+        final BluetoothManager mBluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        if (mBluetoothManager == null){
+            showMessage("Bluetooth not supported");
             finish();
+            return;
         }
+        mBluetoothAdapter = mBluetoothManager.getAdapter();
 
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
+        if (mBluetoothAdapter == null) {
+            showMessage("Bluetooth not supported");
+            finish();
+            return;
+        } else {
+            if (!mBluetoothAdapter.isEnabled()) {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, Constants.REQUEST_ENABLE_BT);
+            }
+
+        }
     }
 
-    private void connectToArduino(BluetoothController controller){
-        if (controller.connect()){
-            showMessage("Connection establish with Arduino");
-        } else {
-            showMessage("Could not connect to Arduino");
-            finish();
-        }
 
-    }
-
-    private void showMessage(String message){
+    private void showMessage(String message) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, message, duration);
@@ -66,7 +75,6 @@ public class MainScreen extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 
 
 }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Heater Controller</string>
-    <string name="connect_text">Connect to Arduino</string>
+    <string name="turn_on">Turn on heater</string>
+    <string name="connect">Connect to Arduino</string>
 </resources>
