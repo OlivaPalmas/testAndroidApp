@@ -120,13 +120,17 @@ public class BluetoothDeviceService extends Service {
         //sendBroadcast(intent);
     }
 
+    private final IBinder mBinder = new LocalBinder();
+
     public class LocalBinder extends Binder {
         BluetoothDeviceService getService() {
+            Log.d(TAG, "Get service BluetoothDevice");
             return BluetoothDeviceService.this;
         }
     }
     @Override
     public IBinder onBind(Intent intent) {
+        Log.d(TAG, "bound");
         return mBinder;
     }
 
@@ -139,7 +143,7 @@ public class BluetoothDeviceService extends Service {
         return super.onUnbind(intent);
     }
 
-    private final IBinder mBinder = new LocalBinder();
+
 
     /**
      * Initializes a reference to the local Bluetooth adapter.
@@ -148,6 +152,7 @@ public class BluetoothDeviceService extends Service {
      */
 
     public boolean initialize() {
+        Log.d(TAG, "Initializing Bluetooth Service.");
 
         mBluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = mBluetoothManager.getAdapter();

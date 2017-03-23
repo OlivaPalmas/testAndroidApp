@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import static android.util.Log.*;
+import static android.util.Log.d;
 import static com.mercedes.vidito.heatercontroller.CONSTANTS.*;
 
 /**
@@ -38,6 +40,7 @@ public class ServicesScreen extends Activity {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder service) {
             mBluetoothService = ((BluetoothDeviceService.LocalBinder) service).getService();
+            Log.d(TAG, "Service connnected");
             if (!mBluetoothService.initialize()) {
                 Log.e(TAG, "Unable to initialize Bluetooth");
                 finish();
@@ -90,6 +93,30 @@ public class ServicesScreen extends Activity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        //registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+        if (mBluetoothService != null) {
+            final boolean result = mBluetoothService.connect();
+            Log.d(TAG, "Connect request result=" + result);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mGattUpdateReceiver);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(mServiceConnection);
+        mBluetoothService = null;
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.servicescreen);
@@ -97,7 +124,7 @@ public class ServicesScreen extends Activity {
         mGattServicesList = (ExpandableListView) findViewById(R.id.gatt_services_list);
         mConnectionState = (TextView) findViewById(R.id.connection_state);
         mDataField = (TextView) findViewById(R.id.data_value);
-
+        Log.d(TAG, "Service connnected");
         //getActionBar().setTitle(CONSTANTS.mDeviceName);
         //getActionBar().setDisplayHomeAsUpEnabled(true);
         Intent gattServiceIntent = new Intent(this,  BluetoothDeviceService.class);

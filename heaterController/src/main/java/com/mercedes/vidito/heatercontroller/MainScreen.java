@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainscreen);
-
+        Log.d("main screen", "main screen started");
         final Button connectButton = (Button) findViewById(R.id.button_connect);
         connectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
