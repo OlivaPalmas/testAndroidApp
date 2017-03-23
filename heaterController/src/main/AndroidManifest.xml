@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.mercedes.vidito.heatercontroller.ServicesScreen"></activity>
+        <activity android:name="com.mercedes.vidito.heatercontroller.ServicesScreen">
+        </activity>
     </application>
     <uses-sdk android:minSdkVersion="18"/>
 

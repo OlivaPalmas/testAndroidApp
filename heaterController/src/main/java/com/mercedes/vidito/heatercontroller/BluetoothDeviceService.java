@@ -31,8 +31,7 @@ import java.util.UUID;
 
 public class BluetoothDeviceService extends Service {
     private final static String TAG = BluetoothDeviceService.class.getSimpleName();
-    private static final UUID Service_UUID = UUID.fromString("19B10010-E8F2-537E-4F6C-D104768A1214");
-    private static final String mBluetoothDeviceAddress = "98:4F:EE:0F:4F:E7";
+
     private BluetoothManager mBluetoothManager;
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothGatt mBluetoothGatt;
@@ -115,7 +114,7 @@ public class BluetoothDeviceService extends Service {
         // This is special handling for the Heart Rate Measurement profile.  Data parsing is
         // carried out as per profile specifications:
         // http://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.heart_rate_measurement.xml
-        if (Service_UUID.equals(characteristic.getUuid())) {
+        if (CONSTANTS.Service_UUID.equals(characteristic.getUuid())) {
 
         }
         //sendBroadcast(intent);
@@ -148,7 +147,7 @@ public class BluetoothDeviceService extends Service {
      * @return Return true if the initialization is successful.
      */
 
-    public boolean inizialize() {
+    public boolean initialize() {
 
         mBluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = mBluetoothManager.getAdapter();
@@ -176,7 +175,7 @@ public class BluetoothDeviceService extends Service {
         }
 
         // Previously connected device.  Try to reconnect.
-        if (mBluetoothDeviceAddress != null
+        if (CONSTANTS.mBluetoothDeviceAddress != null
                 && mBluetoothGatt != null) {
             Log.d(TAG, "Trying to use an existing mBluetoothGatt for connection.");
             if (mBluetoothGatt.connect()) {
@@ -187,7 +186,7 @@ public class BluetoothDeviceService extends Service {
             }
         }
 
-        final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(mBluetoothDeviceAddress);
+        final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(CONSTANTS.mBluetoothDeviceAddress);
         if (device == null) {
             Log.w(TAG, "Device not found.  Unable to connect.");
             return false;

@@ -2,4 +2,10 @@
     <string name="app_name">Heater Controller</string>
     <string name="turn_on">Turn on heater</string>
     <string name="connect">Connect to Arduino</string>
+    <string name="device_address">Arduino Address</string>
+    <string name="state">State:</string>
+    <string name="no_data">No data</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="data">Data:</string>
 </resources>

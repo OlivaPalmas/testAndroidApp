@@ -3,7 +3,6 @@ package com.mercedes.vidito.heatercontroller;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,8 +50,9 @@ public class MainScreen extends AppCompatActivity {
         } else {
             if (!mBluetoothAdapter.isEnabled()) {
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, Constants.REQUEST_ENABLE_BT);
+                startActivityForResult(enableBtIntent, CONSTANTS.REQUEST_ENABLE_BT);
             }
+            showMessage("Bluetooth is enabled");
 
         }
     }
@@ -68,7 +68,7 @@ public class MainScreen extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // User chose not to enable Bluetooth.
-        if (requestCode == Constants.REQUEST_ENABLE_BT && resultCode == RESULT_CANCELED) {
+        if (requestCode == CONSTANTS.REQUEST_ENABLE_BT && resultCode == RESULT_CANCELED) {
             showMessage("Could not enable Bluetooth");
             finish();
             return;
